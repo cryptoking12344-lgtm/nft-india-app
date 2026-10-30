@@ -46,21 +46,21 @@ public class MainActivity extends Activity {
         });
         web.addJavascriptInterface(new Bridge(), "Android");
         setContentView(web);
-        if (savedInstanceState != null) web.restoreState(savedInstanceState);
-        else web.loadUrl("file:///android_asset/www/index.html");
+        // Demo build: every launch starts from a clean state (app data lives in memory only).
+        web.loadUrl("file:///android_asset/www/index.html");
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle out) {
-        super.onSaveInstanceState(out);
-        web.saveState(out);
+    protected void onDestroy() {
+        if (web != null) { web.destroy(); web = null; }
+        super.onDestroy();
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void onBackPressed() {
         web.evaluateJavascript("(window.appBack && window.appBack()) ? 'handled' : 'exit'", value -> {
-            if (value == null || value.contains("exit")) finish();
+            if (value == null || value.contains("exit")) finishAndRemoveTask();
         });
     }
 
@@ -88,12 +88,21 @@ public class MainActivity extends Activity {
             runOnUiThread(() -> {
                 try {
                     Window w = getWindow();
-                    boolean dark = "dark".equals(mode);
-                    w.setStatusBarColor(Color.parseColor(dark ? "#2A2234" : "#FBF8F2"));
+                    boolean darkBg = "dark".equals(mode);
+                    int c;
+                    try { c = Color.parseColor(color == null || color.isEmpty() ? (darkBg ? "#0E1116" : "#FBF8F2") : color.trim()); }
+                    catch (Exception e) { c = Color.parseColor(darkBg ? "#0E1116" : "#FBF8F2"); }
+                    w.setStatusBarColor(c);
+                    w.setNavigationBarColor(darkBg ? Color.parseColor("#181C24") : Color.WHITE);
+                    web.setBackgroundColor(darkBg ? Color.parseColor("#0E1116") : Color.parseColor("#FBF8F2"));
                     View d = w.getDecorView();
                     int f = d.getSystemUiVisibility();
-                    if (dark) f &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    if (darkBg) f &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                     else f |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        if (darkBg) f &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                        else f |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+                    }
                     d.setSystemUiVisibility(f);
                 } catch (Exception ignored) { }
             });

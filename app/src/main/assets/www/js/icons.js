@@ -11,7 +11,14 @@ const I = {
   back: '<path d="M20 12H4M10 6l-6 6 6 6"/>',
   arrow: '<path d="M4 12h16M14 6l6 6-6 6"/>',
   chev: '<path d="m9 6 6 6-6 6"/>',
-  gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+  gear: '<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+  gavel: '<path d="m14 13-7.5 7.5a2.1 2.1 0 0 1-3-3L11 10"/><path d="m16 16 6-6M8 8l6-6M9 7l8 8M21 11l-8-8"/>',
+  tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+  send: '<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>',
+  trend: '<path d="m3 17 6-6 4 4 8-8M15 7h6v6"/>',
+  bank: '<path d="M3 10h18L12 4zM5 10v8M9 10v8M15 10v8M19 10v8M3 21h18"/>',
   wallet: '<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/>',
   receipt: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
   users: '<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.6c2.4.6 4 2.4 4 5.4"/>',
@@ -47,18 +54,18 @@ const ic = (n, s = 22, c = 'currentColor', w = 1.8, fill = 'none') => `<svg widt
 function logoSVG(h = 60, mono = false) {
   // wordmark + waving tricolour
   return `<svg height="${h}" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
-   <text x="0" y="52" font-family="Poppins" font-weight="800" font-size="56" fill="#13213C" letter-spacing="-1">NFT</text>
+   <text x="0" y="52" font-family="Poppins" font-weight="800" font-size="56" style="fill:var(--navy)" letter-spacing="-1">NFT</text>
    <g transform="translate(136 8)">
      <path d="M0 6 Q18 -4 34 6 T68 4 V14 Q52 22 34 14 T0 16Z" fill="#F28C28"/>
      <path d="M0 18 Q18 8 34 18 T68 16 V26 Q52 34 34 26 T0 28Z" fill="#fff" stroke="#e6dccb" stroke-width=".8"/>
      <path d="M0 30 Q18 20 34 30 T68 28 V38 Q52 46 34 38 T0 40Z" fill="#12804A"/>
-     <circle cx="34" cy="22" r="3.6" fill="none" stroke="#13213C" stroke-width="1.4"/>
+     <circle cx="34" cy="22" r="3.6" fill="none" style="stroke:var(--navy)" stroke-width="1.4"/>
    </g>
-   <text x="0" y="112" font-family="Poppins" font-weight="800" font-size="56" fill="#13213C" letter-spacing="-1">INDIA</text>
+   <text x="0" y="112" font-family="Poppins" font-weight="800" font-size="56" style="fill:var(--navy)" letter-spacing="-1">INDIA</text>
   </svg>`;
 }
 const verified = (s = 14) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 1.5l2.6 2 3.3-.2.9 3.2 2.7 1.9-1.1 3.1 1.1 3.1-2.7 1.9-.9 3.2-3.3-.2-2.6 2-2.6-2-3.3.2-.9-3.2-2.7-1.9 1.1-3.1L2.4 8.4l2.7-1.9.9-3.2 3.3.2z" fill="#2f7cf6"/><path d="m8 12 3 3 5-6" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>`;
 function logoInline(size = 20) {
-  return `<span style="display:inline-flex;align-items:center;gap:6px;font:800 ${size}px Poppins;color:#13213C;letter-spacing:-.5px">NFT INDIA
+  return `<span style="display:inline-flex;align-items:center;gap:6px;font:800 ${size}px Poppins;color:var(--navy);letter-spacing:-.5px">NFT INDIA
   <svg width="${size * 1.1}" height="${size * .8}" viewBox="0 0 68 46"><path d="M0 6 Q18 -4 34 6 T68 4 V14 Q52 22 34 14 T0 16Z" fill="#F28C28"/><path d="M0 18 Q18 8 34 18 T68 16 V26 Q52 34 34 26 T0 28Z" fill="#fff" stroke="#e6dccb"/><path d="M0 30 Q18 20 34 30 T68 28 V38 Q52 46 34 38 T0 40Z" fill="#12804A"/></svg></span>`;
 }

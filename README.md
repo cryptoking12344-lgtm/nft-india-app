@@ -16,8 +16,12 @@ Splash (animated) → Onboarding → Mobile number → OTP (**123456**, or tap *
 Home / Explore / Search → Collection → NFT detail (attributes, provenance, blockchain details) →
 Checkout (UPI) → Approve/Decline → Processing → Success → My Collection → Order history / Notifications.
 
+**Owned collectibles** can be **Sold** (fixed price), **Auctioned** (2-min demo auction with live bids) or **Gifted** by mobile number. Sale earnings (after 2.5% platform fee + 5% creator royalty) show in My Wallet and can be withdrawn via UPI.
+
+**Light / Dark / Auto theme** — toggle at the top of the side menu or in Settings → Appearance.
+
+**Demo resets on close** — all data lives in memory, so every fresh launch starts from the splash screen (theme choice is kept).
 Settings → **Simulate delayed delivery** shows the "payment succeeded, delivery pending" flow.
-Settings → **Reset demo data** starts fresh.
 
 ## Structure
 - `app/src/main/assets/www/` — the app UI (HTML/CSS/JS, no build step). Open `index.html` in Chrome (mobile view) to preview.
